@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Formulário da Conta{% endblock titulo %}
+
+{% block conteudo %}
+<form class="form-horizontal" action="/caixas/salvar/" method="POST" role="form">{% csrf_token %}
+
+    <input type="hidden" id="codigo" name="codigo" value="{{ conta.pk|default_if_none:'0' }}">
+
+    <div class="form-group">
+        <label for="idTipo" class="col-sm-2 control-label">Tipo</label>
+        <div class="col-sm-1">
+            <input name="tipo" id="idtipo" value="{{ conta.tipo }}" type="text" class="form-control"  placeholder="Tipo">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="idDescricao" class="col-sm-2 control-label">Descricao</label>
+        <div class="col-sm-5">
+            <input name="descricao" id="idDescricao" value="{{ conta.descricao|default_if_none:'' }}" type="text" class="form-control"  placeholder="Descricao da Conta">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="idValor" class="col-sm-2 control-label">Valor</label>
+            <div class="col-sm-3">
+                <input name="valor" id="idValor" value="{{ conta.valor|default_if_none:'' }}" type="text" class="form-control"  placeholder="Valor Conta" >
+            </div>
+
+    <div class="form-group">
+        <label for="idPagSeguro" class="col-sm-2 control-label">PagSeguro</label>
+            <div class="col-sm-3">
+                <input name="pagseguro" id="idpagSeguro" value="{{ conta.pagSeguro|default_if_none:'' }}" type="text" class="form-control"  placeholder="PagSeguro" >
+            </div>
+            
+    </div>
+    <div class="form-group">
+        <label for="idData" class="col-sm-2 control-label">Data</label>
+            <div class="col-sm-3">
+            <input name="data" id ="idData" value="{{ conta.data|default_if_none:'' }}" type="text" class="form-control" placeholder="Data"></input>
+            </div>
+    </div>
+
+    <div align="center">
+        <button type="submit" class="btn btn-success">Salvar Registro</button>
+        {% if conta.pk > 0 %}
+        <a class="btn btn-danger" href="/caixas/excluir/{{ conta.pk }}/">Excluir</a>
+        {% endif %}
+    </div>
+</form>
+{% endblock conteudo %}
